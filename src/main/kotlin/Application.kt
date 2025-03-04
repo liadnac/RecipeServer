@@ -1,5 +1,6 @@
 package com.example
 
+import com.example.model.*
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {
@@ -7,6 +8,11 @@ fun main(args: Array<String>) {
 }
 
 fun Application.module() {
-    configureSerialization()
+    configureSerialization(
+        categoryRepository = PostgresCategoryRepository(),
+        subcategoryRepository = PostgresSubcategoryRepository(),
+        recipeRepository = PostgresRecipeRepository()
+    )
+    configureDatabases()
     configureRouting()
 }

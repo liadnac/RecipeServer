@@ -1,1 +1,1 @@
-rootProject.name = "ktor-rest-task-app"
+rootProject.name = "ktor-sample"

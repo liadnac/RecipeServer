@@ -1,42 +1,44 @@
 package com.example
 
 import com.example.model.Category
-import io.ktor.client.call.*
+import com.example.model.FakeCategoryRepository
+import com.example.model.FakeRecipeRepository
+import com.example.model.FakeSubcategoryRepository
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.testing.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 
 class ApplicationTest {
 
     @Test
-    fun testCategoryCanBeFoundById() = testApplication {
+    fun testCategoriesReturnsListOfCategories() = testApplication {
         application {
-            module()
+            val categoryRepository = FakeCategoryRepository()
+            val subcategoryRepository = FakeSubcategoryRepository()
+            val recipeRepository = FakeRecipeRepository()
+            configureSerialization(categoryRepository, subcategoryRepository, recipeRepository)
+            configureRouting()
         }
         val client = createClient {
             install(ContentNegotiation) {
                 json()
             }
         }
-        val response = client.get("/categories/1")
-        val results = response.body<Category>()
-            assertEquals(HttpStatusCode.OK, response.status)
+        val response = client.get("/categories")
+        val results = response.body<List<Category>>()
 
-        val expectedCategoryName = "Kids"
-        val actualCategoryName = results.name
-            assertEquals(expectedCategoryName, actualCategoryName)
-    }
+        assertEquals(HttpStatusCode.OK, response.status)
 
-    @Test
-    fun unusedCategoryIdProduces404() = testApplication {
-        application {
-            module()
-        }
-        val response = client.get("/categories/5")
-        assertEquals(HttpStatusCode.NotFound, response.status)
+        val expectedNames = listOf("Kids", "Meals")
+        val actualNames = results.map { it.name }
+        assertContentEquals(expectedNames, actualNames)
+
     }
 
 }
