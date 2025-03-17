@@ -13,6 +13,6 @@ fun Application.module() {
         subcategoryRepository = PostgresSubcategoryRepository(),
         recipeRepository = PostgresRecipeRepository()
     )
-    configureDatabases()
+    configureDatabases(environment.config)
     configureRouting()
 }

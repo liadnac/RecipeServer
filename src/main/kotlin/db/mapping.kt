@@ -1,6 +1,5 @@
 package com.example.db
 
-import com.example.db.CategoryDAO.Companion.referrersOn
 import com.example.model.*
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.dao.IntEntity
