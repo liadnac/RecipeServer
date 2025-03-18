@@ -7,6 +7,6 @@ ktor:
         port: 8080
 storage:
   driverClassName: "org.postgresql.Driver"
-  jdbcURL: "jdbc:postgresql://localhost:5432/recipeapp"
+  jdbcURL: "jdbc:postgresql://db:5432/recipeapp"
   user: "postgres"
   password: "password"
