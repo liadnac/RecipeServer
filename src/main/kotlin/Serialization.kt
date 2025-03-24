@@ -1,8 +1,8 @@
-package com.example
+package sh.deut.recipeapp
 
-import com.example.model.CategoryRepository
-import com.example.model.RecipeRepository
-import com.example.model.SubcategoryRepository
+import sh.deut.recipeapp.model.CategoryRepository
+import sh.deut.recipeapp.model.RecipeRepository
+import sh.deut.recipeapp.model.SubcategoryRepository
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
