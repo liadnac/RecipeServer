@@ -1,4 +1,4 @@
-package com.example
+package sh.deut.recipeapp
 
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*

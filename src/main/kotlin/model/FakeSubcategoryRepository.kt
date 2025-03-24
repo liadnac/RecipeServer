@@ -1,4 +1,4 @@
-package com.example.model
+package sh.deut.recipeapp.model
 
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration

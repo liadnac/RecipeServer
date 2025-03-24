@@ -1,9 +1,9 @@
-package com.example
+package sh.deut.recipeapp
 
-import com.example.model.Category
-import com.example.model.FakeCategoryRepository
-import com.example.model.FakeRecipeRepository
-import com.example.model.FakeSubcategoryRepository
+import sh.deut.recipeapp.model.Category
+import sh.deut.recipeapp.model.FakeCategoryRepository
+import sh.deut.recipeapp.model.FakeRecipeRepository
+import sh.deut.recipeapp.model.FakeSubcategoryRepository
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*

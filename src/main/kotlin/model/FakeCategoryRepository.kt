@@ -1,4 +1,4 @@
-package com.example.model
+package sh.deut.recipeapp.model
 
 class FakeCategoryRepository: CategoryRepository {
     private val categories = listOf(

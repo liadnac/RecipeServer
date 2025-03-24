@@ -5,11 +5,11 @@ plugins {
     alias(libs.plugins.kotlin.plugin.serialization)
 }
 
-group = "com.example"
+group = "sh.deut.recipeapp"
 version = "0.0.1"
 
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass = "io.ktor.server.netty.EngineMain"
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
@@ -20,6 +20,7 @@ ktor {
         archiveFileName.set("fat.jar")
     }
 }
+
 repositories {
     mavenCentral()
 }

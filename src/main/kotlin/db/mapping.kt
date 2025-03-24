@@ -1,6 +1,6 @@
-package com.example.db
+package sh.deut.recipeapp.db
 
-import com.example.model.*
+import sh.deut.recipeapp.model.*
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass

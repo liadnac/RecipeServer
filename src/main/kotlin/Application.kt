@@ -1,6 +1,6 @@
-package com.example
+package sh.deut.recipeapp
 
-import com.example.model.*
+import sh.deut.recipeapp.model.*
 import io.ktor.server.application.*
 
 fun main(args: Array<String>) {

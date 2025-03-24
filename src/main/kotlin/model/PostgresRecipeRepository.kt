@@ -1,8 +1,8 @@
-package com.example.model
+package sh.deut.recipeapp.model
 
-import com.example.db.RecipeDAO
-import com.example.db.daoToModel
-import com.example.db.suspendTransaction
+import sh.deut.recipeapp.db.RecipeDAO
+import sh.deut.recipeapp.db.daoToModel
+import sh.deut.recipeapp.db.suspendTransaction
 
 class PostgresRecipeRepository: RecipeRepository {
     override suspend fun recipeById(recipeId: Int): Recipe? = suspendTransaction {

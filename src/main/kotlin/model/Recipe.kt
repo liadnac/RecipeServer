@@ -1,4 +1,4 @@
-package com.example.model
+package sh.deut.recipeapp.model
 
 import kotlinx.serialization.Serializable
 import kotlin.time.Duration

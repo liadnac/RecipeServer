@@ -1,4 +1,4 @@
-package com.example
+package sh.deut.recipeapp
 
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
@@ -15,15 +15,5 @@ import org.jetbrains.exposed.sql.*
 
 fun Application.configureRouting() {
     install(StatusPages) {
-//        exception<Throwable> { call, cause ->
-//            call.respondText(text = "500: $cause" , status = HttpStatusCode.InternalServerError)
-//        }
-//    }
-//    routing {
-//        get("/") {
-//            call.respondText("Hello World!")
-//        }
-//        // Static plugin. Try to access `/static/index.html`
-//        staticResources("/static", "static")
     }
 }
