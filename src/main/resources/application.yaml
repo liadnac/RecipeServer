@@ -1,12 +1,12 @@
 ktor:
-  development: ${DEVELOPMENT_ENV:true}
+  development: "$DEVELOPMENT_ENV:true"
   application:
     modules:
       - sh.deut.recipeapp.ApplicationKt.module
   deployment:
-    port: ${DEPLOYMENT_PORT:8080}
+    port: "$DEPLOYMENT_PORT:8080"
 storage:
   driverClassName: "org.postgresql.Driver"
-  jdbcURL: "${DATABASE_URL:jdbc:postgresql://localhost:5432/recipeapp}"
-  user: "${DB_USER:postgres}"
-  password: "${DB_PASSWORD:password}"
+  jdbcURL: "$DATABASE_URL:jdbc:postgresql://localhost:5432/recipeapp"
+  user: "$DB_USER:postgres"
+  password: "$DB_PASSWORD:password"
