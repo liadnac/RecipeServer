@@ -1,10 +1,19 @@
-package sh.deut.recipeapp.model
+package sh.deut.recipeapp.fake
 
+import sh.deut.recipeapp.model.PartialRecipe
+import sh.deut.recipeapp.model.SubcategoryRepository
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 class FakeSubcategoryRepository: SubcategoryRepository {
     private val subcategoryRecipeList: List<PartialRecipe> = listOf(
+        PartialRecipe(
+            12,
+            "Pumpkin Pie",
+            "http://10.0.2.2:8080/static/RecipeImages/ChocolatePancakes.jpg",
+            150.toDuration(DurationUnit.MINUTES),
+            13
+        ),
         PartialRecipe(
             22,
             "Chocolate Pancakes",

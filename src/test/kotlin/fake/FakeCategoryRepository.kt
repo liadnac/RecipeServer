@@ -1,4 +1,8 @@
-package sh.deut.recipeapp.model
+package sh.deut.recipeapp.fake
+
+import sh.deut.recipeapp.model.Category
+import sh.deut.recipeapp.model.CategoryRepository
+import sh.deut.recipeapp.model.SubCategory
 
 class FakeCategoryRepository: CategoryRepository {
     private val categories = listOf(

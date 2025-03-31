@@ -1,5 +1,9 @@
-package sh.deut.recipeapp.model
+package sh.deut.recipeapp.fake
 
+import sh.deut.recipeapp.model.CookTime
+import sh.deut.recipeapp.model.Recipe
+import sh.deut.recipeapp.model.RecipePart
+import sh.deut.recipeapp.model.RecipeRepository
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 

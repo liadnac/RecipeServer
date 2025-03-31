@@ -1,15 +1,15 @@
 package sh.deut.recipeapp
 
-import sh.deut.recipeapp.model.Category
-import sh.deut.recipeapp.model.FakeCategoryRepository
-import sh.deut.recipeapp.model.FakeRecipeRepository
-import sh.deut.recipeapp.model.FakeSubcategoryRepository
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.testing.*
+import sh.deut.recipeapp.fake.FakeCategoryRepository
+import sh.deut.recipeapp.fake.FakeRecipeRepository
+import sh.deut.recipeapp.fake.FakeSubcategoryRepository
+import sh.deut.recipeapp.model.*
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
@@ -41,4 +41,53 @@ class ApplicationTest {
 
     }
 
+    @Test
+    fun testCategoriesIDReturnsSpecificCategory() = testApplication {
+        application {
+            val categoryRepository = FakeCategoryRepository()
+            val subcategoryRepository = FakeSubcategoryRepository()
+            val recipeRepository = FakeRecipeRepository()
+            configureSerialization(categoryRepository, subcategoryRepository, recipeRepository)
+            configureRouting()
+        }
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+        val response = client.get("/categories/1")
+        val results = response.body<Category>()
+
+        assertEquals(HttpStatusCode.OK, response.status)
+
+        val expectedName = "Kids"
+        val actualName = results.name
+        assertEquals(expectedName, actualName)
+    }
+
+    @Test
+    fun testSubcategoriesRecipeReturnsListOfRecipes() = testApplication {
+        application {
+            val categoryRepository = FakeCategoryRepository()
+            val subcategoryRepository = FakeSubcategoryRepository()
+            val recipeRepository = FakeRecipeRepository()
+            configureSerialization(categoryRepository, subcategoryRepository, recipeRepository)
+            configureRouting()
+        }
+        val client = createClient {
+            install(ContentNegotiation) {
+                json()
+            }
+        }
+        val response = client.get("/subcategories/13/recipes")
+        val results = response.body<List<PartialRecipe>>()
+
+        assertEquals(HttpStatusCode.OK, response.status)
+
+        val expectedName = "Pumpkin Pie"
+        val actualName = results[0].name
+        assertEquals(expectedName, actualName)
+
+        assertEquals(results.size, 1)
+    }
 }
