@@ -24,8 +24,8 @@ class ApplicationTest {
             val categoryRepository = FakeCategoryRepository()
             val subcategoryRepository = FakeSubcategoryRepository()
             val recipeRepository = FakeRecipeRepository()
-            configureSerialization(categoryRepository, subcategoryRepository, recipeRepository)
-            configureRouting()
+            configureSerialization()
+            configureRouting(categoryRepository, subcategoryRepository, recipeRepository)
         }
         val client = createClient {
             install(ContentNegotiation) {
@@ -49,8 +49,8 @@ class ApplicationTest {
             val categoryRepository = FakeCategoryRepository()
             val subcategoryRepository = FakeSubcategoryRepository()
             val recipeRepository = FakeRecipeRepository()
-            configureSerialization(categoryRepository, subcategoryRepository, recipeRepository)
-            configureRouting()
+            configureSerialization()
+            configureRouting(categoryRepository, subcategoryRepository, recipeRepository)
         }
         val client = createClient {
             install(ContentNegotiation) {
@@ -73,8 +73,8 @@ class ApplicationTest {
             val categoryRepository = FakeCategoryRepository()
             val subcategoryRepository = FakeSubcategoryRepository()
             val recipeRepository = FakeRecipeRepository()
-            configureSerialization(categoryRepository, subcategoryRepository, recipeRepository)
-            configureRouting()
+            configureSerialization()
+            configureRouting(categoryRepository, subcategoryRepository, recipeRepository)
         }
         val client = createClient {
             install(ContentNegotiation) {
@@ -99,8 +99,8 @@ class ApplicationTest {
             val categoryRepository = FakeCategoryRepository()
             val subcategoryRepository = FakeSubcategoryRepository()
             val recipeRepository = FakeRecipeRepository()
-            configureSerialization(categoryRepository, subcategoryRepository, recipeRepository)
-            configureRouting()
+            configureSerialization()
+            configureRouting(categoryRepository, subcategoryRepository, recipeRepository)
         }
         val client = createClient {
             install(ContentNegotiation) {

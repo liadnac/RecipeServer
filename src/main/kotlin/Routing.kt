@@ -12,8 +12,62 @@ import io.ktor.server.routing.*
 import java.sql.Connection
 import java.sql.DriverManager
 import org.jetbrains.exposed.sql.*
+import sh.deut.recipeapp.model.CategoryRepository
+import sh.deut.recipeapp.model.RecipeRepository
+import sh.deut.recipeapp.model.SubcategoryRepository
+import java.io.File
 
-fun Application.configureRouting() {
+fun Application.configureRouting(
+    categoryRepository: CategoryRepository,
+    subcategoryRepository: SubcategoryRepository,
+    recipeRepository: RecipeRepository
+) {
     install(StatusPages) {
+    }
+    routing {
+        staticFiles("/static", File("static"))
+        route("/categories") {
+            get {
+                val categories = categoryRepository.allCategories()
+                call.respond(categories)
+            }
+            get("/{id}") {
+                val id = call.parameters["id"]
+                if (id == null) {
+                    call.respond(HttpStatusCode.BadRequest)
+                    return@get
+                }
+                val category = categoryRepository.categoryById(id.toInt())
+                if (category == null) {
+                    call.respond(HttpStatusCode.NotFound)
+                    return@get
+                }
+                call.respond(category)
+            }
+        }
+
+        get("/subcategories/{subcategoryId}/recipes") {
+            val id = call.parameters["subcategoryId"]
+            if (id == null) {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val recipes = subcategoryRepository.recipesBySubcategoryId(id.toInt())
+            call.respond(recipes)
+        }
+
+        get("/recipes/{recipeId}") {
+            val id = call.parameters["recipeId"]
+            if (id == null) {
+                call.respond(HttpStatusCode.BadRequest)
+                return@get
+            }
+            val recipe = recipeRepository.recipeById(id.toInt())
+            if (recipe == null) {
+                call.respond(HttpStatusCode.NotFound)
+                return@get
+            }
+            call.respond(recipe)
+        }
     }
 }
