@@ -26,12 +26,15 @@ fun Application.configureRouting(
 ) {
     install(StatusPages) {
     }
+    val username = environment.config.property("ktor.authentication.user").getString()
+    val password = environment.config.property("ktor.authentication.password").getString()
+
     install(Authentication) {
         basic("auth-basic") {
             realm = "Ktor Server"
             validate { credentials ->
                 // TO DO: replace with config
-                if (credentials.name == "username" && credentials.password == "password") {
+                if (credentials.name == username && credentials.password == password) {
                     UserIdPrincipal(credentials.name)
                 } else null
             }
