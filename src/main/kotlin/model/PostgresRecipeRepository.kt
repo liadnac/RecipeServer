@@ -11,7 +11,7 @@ class PostgresRecipeRepository: RecipeRepository {
     override suspend fun addRecipe(recipe: Recipe, subcategoryId: Int) = suspendTransaction {
         val subcategory = SubcategoryDAO.findById(subcategoryId)
             ?: throw IllegalArgumentException("Subcategory with id $subcategoryId not found.")
-        RecipeDAO.new {
+        val dao = RecipeDAO.new {
             name = recipe.name
             imgUrl = recipe.imgUrl
             description = recipe.description
@@ -24,7 +24,7 @@ class PostgresRecipeRepository: RecipeRepository {
                 name = recipePart.name
                 ingredients = recipePart.ingredients.joinToString("||")
                 instructions = recipePart.instructions.joinToString("||")
-                this.recipeId = recipeId
+                this.recipeId = dao
             }
         }
     }
