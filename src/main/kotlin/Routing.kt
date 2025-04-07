@@ -72,24 +72,27 @@ fun Application.configureRouting(
             }
         }
 
-        get("/subcategories/{subcategoryId}/recipes") {
-            val id = call.parameters["subcategoryId"]
-            if (id == null) {
-                call.respond(HttpStatusCode.BadRequest)
-                return@get
-            }
-            val recipes = subcategoryRepository.recipesBySubcategoryId(id.toInt())
-            call.respond(recipes)
-        }
-        authenticate("auth-basic") {
-            post("/subcategories/{subcategoryId}/recipes") {
+        route("/subcategories/{subcategoryId}/recipes") {
+            get() {
                 val id = call.parameters["subcategoryId"]
                 if (id == null) {
                     call.respond(HttpStatusCode.BadRequest)
-                    return@post
+                    return@get
                 }
-                val requestBody = call.receive<Recipe>()
-                val recipe = recipeRepository.addRecipe(requestBody, id.toInt())
+                val recipes = subcategoryRepository.recipesBySubcategoryId(id.toInt())
+                call.respond(recipes)
+            }
+            authenticate("auth-basic") {
+                post() {
+                    val id = call.parameters["subcategoryId"]
+                    if (id == null) {
+                        call.respond(HttpStatusCode.BadRequest)
+                        return@post
+                    }
+                    val requestBody = call.receive<Recipe>()
+                    recipeRepository.addRecipe(requestBody, id.toInt())
+                    call.respond(HttpStatusCode.Created)
+                }
             }
         }
 
