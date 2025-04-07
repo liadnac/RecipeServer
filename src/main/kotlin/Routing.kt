@@ -72,6 +72,22 @@ fun Application.configureRouting(
             }
         }
 
+        route("/categories/{id}/subcategories") {
+            authenticate("auth-basic") {
+                post {
+                    val id = call.parameters["id"]
+                    if (id == null) {
+                        call.respond(HttpStatusCode.BadRequest)
+                        return@post
+                    }
+                    val requestBody = call.receive<SubCategory>()
+                    subcategoryRepository.addSubcategory(requestBody, id.toInt())
+                    call.respond(HttpStatusCode.Created)
+                    environment.log.info("Subcategory '${requestBody.name}' created under category '$id'")
+                }
+            }
+        }
+
         route("/subcategories/{subcategoryId}/recipes") {
             get {
                 val id = call.parameters["subcategoryId"]
