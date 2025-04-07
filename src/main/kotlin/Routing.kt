@@ -10,14 +10,19 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import java.sql.Connection
-import java.sql.DriverManager
 import org.jetbrains.exposed.sql.*
 import sh.deut.recipeapp.model.CategoryRepository
 import sh.deut.recipeapp.model.Recipe
 import sh.deut.recipeapp.model.RecipeRepository
 import sh.deut.recipeapp.model.SubcategoryRepository
 import java.io.File
+import java.security.SecureRandom
+
+fun generateSecureRandomPassword(length: Int = 16): String {
+    val characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    val random = SecureRandom()
+    return (1..length).map { characters[random.nextInt(characters.length)] }.joinToString("")
+}
 
 fun Application.configureRouting(
     categoryRepository: CategoryRepository,
@@ -26,14 +31,19 @@ fun Application.configureRouting(
 ) {
     install(StatusPages) {
     }
-    val username = environment.config.property("ktor.authentication.user").getString()
-    val password = environment.config.property("ktor.authentication.password").getString()
+
+    // Generate a secure random password
+    val username = "admin"
+    val password = generateSecureRandomPassword() // Generate a random password
+
+    // Log the credentials
+    environment.log.info("Generated credentials -> Username: $username, Password: $password")
+
 
     install(Authentication) {
         basic("auth-basic") {
             realm = "Ktor Server"
             validate { credentials ->
-                // TO DO: replace with config
                 if (credentials.name == username && credentials.password == password) {
                     UserIdPrincipal(credentials.name)
                 } else null
