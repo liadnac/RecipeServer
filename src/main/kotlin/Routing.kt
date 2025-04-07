@@ -1,20 +1,14 @@
 package sh.deut.recipeapp
 
 import io.ktor.http.*
-import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.http.content.*
-import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import org.jetbrains.exposed.sql.*
-import sh.deut.recipeapp.model.CategoryRepository
-import sh.deut.recipeapp.model.Recipe
-import sh.deut.recipeapp.model.RecipeRepository
-import sh.deut.recipeapp.model.SubcategoryRepository
+import sh.deut.recipeapp.model.*
 import java.io.File
 import java.security.SecureRandom
 
@@ -29,8 +23,7 @@ fun Application.configureRouting(
     subcategoryRepository: SubcategoryRepository,
     recipeRepository: RecipeRepository
 ) {
-    install(StatusPages) {
-    }
+    install(StatusPages) {}
 
     // Generate a secure random password
     val username = "admin"
@@ -70,10 +63,17 @@ fun Application.configureRouting(
                 }
                 call.respond(category)
             }
+            authenticate("auth-basic") {
+                post {
+                    val requestBody = call.receive<Category>()
+                    categoryRepository.addCategory(requestBody)
+                    call.respond(HttpStatusCode.Created)
+                }
+            }
         }
 
         route("/subcategories/{subcategoryId}/recipes") {
-            get() {
+            get {
                 val id = call.parameters["subcategoryId"]
                 if (id == null) {
                     call.respond(HttpStatusCode.BadRequest)
@@ -83,7 +83,7 @@ fun Application.configureRouting(
                 call.respond(recipes)
             }
             authenticate("auth-basic") {
-                post() {
+                post {
                     val id = call.parameters["subcategoryId"]
                     if (id == null) {
                         call.respond(HttpStatusCode.BadRequest)
