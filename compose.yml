@@ -1,6 +1,7 @@
 services:
   web:
     build: .
+    image: liadnachlai/recipe-server
     ports:
       - "8080:8080"
     volumes:
