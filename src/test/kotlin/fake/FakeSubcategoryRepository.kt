@@ -1,12 +1,13 @@
 package sh.deut.recipeapp.fake
 
 import sh.deut.recipeapp.model.PartialRecipe
+import sh.deut.recipeapp.model.SubCategory
 import sh.deut.recipeapp.model.SubcategoryRepository
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
 class FakeSubcategoryRepository : SubcategoryRepository {
-    private val subcategoryRecipeList: List<PartialRecipe> = listOf(
+    val subcategoryRecipeList: List<PartialRecipe> = listOf(
         PartialRecipe(
             12,
             "Pumpkin Pie",
@@ -46,4 +47,8 @@ class FakeSubcategoryRepository : SubcategoryRepository {
 
     override suspend fun recipesBySubcategoryId(id: Int): List<PartialRecipe> =
         subcategoryRecipeList.filter { it.subcategoryId == id }
+
+    override suspend fun addSubcategory(subcategory: SubCategory, categoryId: Int) {
+        // No op
+    }
 }

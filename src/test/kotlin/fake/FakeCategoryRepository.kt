@@ -5,7 +5,7 @@ import sh.deut.recipeapp.model.CategoryRepository
 import sh.deut.recipeapp.model.SubCategory
 
 class FakeCategoryRepository : CategoryRepository {
-    private val categories = listOf(
+    private val categories = mutableListOf(
         Category(
             1,
             "Kids",
@@ -23,4 +23,7 @@ class FakeCategoryRepository : CategoryRepository {
     override suspend fun allCategories(): List<Category> = categories
 
     override suspend fun categoryById(id: Int) = categories.find { it.id == id }
+    override suspend fun addCategory(category: Category) {
+        categories.add(category)
+    }
 }
