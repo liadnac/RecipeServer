@@ -30,7 +30,7 @@ fun Application.configureRouting(
     val password = generateSecureRandomPassword() // Generate a random password
 
     // Log the credentials
-    environment.log.info("Generated credentials -> Username: $username, Password: $password")
+    log.info("Generated credentials -> Username: $username, Password: $password")
 
 
     install(Authentication) {
@@ -68,6 +68,7 @@ fun Application.configureRouting(
                     val requestBody = call.receive<Category>()
                     categoryRepository.addCategory(requestBody)
                     call.respond(HttpStatusCode.Created)
+                    log.info("Category '${requestBody.name}' created")
                 }
             }
         }
@@ -83,7 +84,7 @@ fun Application.configureRouting(
                     val requestBody = call.receive<SubCategory>()
                     subcategoryRepository.addSubcategory(requestBody, id.toInt())
                     call.respond(HttpStatusCode.Created)
-                    environment.log.info("Subcategory '${requestBody.name}' created under category '$id'")
+                    log.info("Subcategory '${requestBody.name}' created under category '$id'")
                 }
             }
         }
@@ -108,6 +109,7 @@ fun Application.configureRouting(
                     val requestBody = call.receive<Recipe>()
                     recipeRepository.addRecipe(requestBody, id.toInt())
                     call.respond(HttpStatusCode.Created)
+                    log.info("Recipe '${requestBody.name}' created under subcategory '$id'")
                 }
             }
         }
