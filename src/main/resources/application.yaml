@@ -1,7 +1,7 @@
 ktor:
-#  authentication:
-#    user: "testUser"
-#    password: "testPassword"
+  #  authentication:
+  #    user: "testUser"
+  #    password: "testPassword"
   development: "$DEVELOPMENT_ENV:true"
   application:
     modules:

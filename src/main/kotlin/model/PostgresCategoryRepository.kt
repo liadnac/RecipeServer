@@ -1,6 +1,9 @@
 package sh.deut.recipeapp.model
 
-import sh.deut.recipeapp.db.*
+import sh.deut.recipeapp.db.CategoryDAO
+import sh.deut.recipeapp.db.SubcategoryDAO
+import sh.deut.recipeapp.db.daoToModel
+import sh.deut.recipeapp.db.suspendTransaction
 
 class PostgresCategoryRepository : CategoryRepository {
     override suspend fun allCategories(): List<Category> = suspendTransaction {

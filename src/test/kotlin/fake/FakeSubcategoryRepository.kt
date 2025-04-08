@@ -5,7 +5,7 @@ import sh.deut.recipeapp.model.SubcategoryRepository
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
 
-class FakeSubcategoryRepository: SubcategoryRepository {
+class FakeSubcategoryRepository : SubcategoryRepository {
     private val subcategoryRecipeList: List<PartialRecipe> = listOf(
         PartialRecipe(
             12,
@@ -44,5 +44,6 @@ class FakeSubcategoryRepository: SubcategoryRepository {
         ),
     )
 
-    override suspend fun recipesBySubcategoryId(id: Int): List<PartialRecipe> = subcategoryRecipeList.filter { it.subcategoryId == id }
+    override suspend fun recipesBySubcategoryId(id: Int): List<PartialRecipe> =
+        subcategoryRecipeList.filter { it.subcategoryId == id }
 }

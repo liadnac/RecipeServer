@@ -4,7 +4,7 @@ import sh.deut.recipeapp.model.Category
 import sh.deut.recipeapp.model.CategoryRepository
 import sh.deut.recipeapp.model.SubCategory
 
-class FakeCategoryRepository: CategoryRepository {
+class FakeCategoryRepository : CategoryRepository {
     private val categories = listOf(
         Category(
             1,

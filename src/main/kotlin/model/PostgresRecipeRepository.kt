@@ -3,7 +3,7 @@ package sh.deut.recipeapp.model
 import sh.deut.recipeapp.db.*
 import kotlin.time.DurationUnit
 
-class PostgresRecipeRepository: RecipeRepository {
+class PostgresRecipeRepository : RecipeRepository {
     override suspend fun recipeById(recipeId: Int): Recipe? = suspendTransaction {
         RecipeDAO.findById(recipeId)?.let { daoToModel(it) }
     }

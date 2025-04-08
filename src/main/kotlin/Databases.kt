@@ -10,9 +10,9 @@ import io.ktor.server.plugins.statuspages.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import org.jetbrains.exposed.sql.*
 import java.sql.Connection
 import java.sql.DriverManager
-import org.jetbrains.exposed.sql.*
 
 fun Application.configureDatabases(config: ApplicationConfig) {
     val url = config.property("storage.jdbcURL").getString()
@@ -25,6 +25,7 @@ fun Application.configureDatabases(config: ApplicationConfig) {
         password = password
     )
 }
+
 /**
  * Makes a connection to a Postgres database.
  *
